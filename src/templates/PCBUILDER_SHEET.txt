@@ -1,0 +1,23 @@
+Email:
+{{ email }}
+
+Processor:
+{{ proc }}
+
+Motherboard:
+{{ mobo }}
+
+Memory:
+{{ mem }}
+
+Storage:
+{{ stor }}
+
+Graphics Card:
+{{ gpu }}
+
+Power Supply:
+{{ psu }}
+
+Case:
+{{ case }}

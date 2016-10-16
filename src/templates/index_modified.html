@@ -1,0 +1,238 @@
+{%load staticfiles%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>PC BUILDER</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href='{% static "css/bootstrap.min.css"%}' rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href='{% static "css/sb-admin.css"%}' rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href='{% static "font-awesome/css/font-awesome.min.css"%}' rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href='{% url "posts:home" %}'>PC BUILDER</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a href='{% url "posts:home" %}'><i class="fa fa-fw fa-wrench"></i> BUILD PC</a>
+                    </li>
+                    <li>
+                        <a><i class="fa fa-fw fa-desktop"></i> COMPONENTS</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo_p"><i class="glyphicon glyphicon-triangle-right"></i> Intel Processor <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo_p" class="collapse">
+                            <li>
+                                <a href='{% url "posts:proc1150" %}'>LGA 1150</a>
+                            </li>
+                            <li>
+                                <a href='{% url "posts:proc1151" %}'>LGA 1151</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo_mb"><i class="glyphicon glyphicon-triangle-right"></i> Intel Motherboard <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo_mb" class="collapse">
+                            <li>
+                                <a href='{% url "posts:moth1150" %}'>LGA 1150</a>
+                            </li>
+                            <li>
+                                <a href='{% url "posts:moth1151" %}'>LGA 1151</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo_me"><i class="glyphicon glyphicon-triangle-right"></i> Memory <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo_me" class="collapse">
+                            <li>
+                                <a href='{% url "posts:ddr4" %}'>DDR4</a>
+                            </li>
+                            <li>
+                                <a href='{% url "posts:ddr3" %}'>DDR3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href='{% url "posts:store" %}'><i class="glyphicon glyphicon-triangle-right"></i> Storage </a>
+                    </li>
+                    <li>
+                        <a href='{% url "posts:gpu" %}'><i class="glyphicon glyphicon-triangle-right"></i>Graphics Card</a>
+                    </li>
+                    <li>
+                        <a href='{% url "posts:psu" %}'><i class="glyphicon glyphicon-triangle-right"></i>Power Supply</a>
+                    </li>
+                    <li>
+                        <a href='{% url "posts:case" %}'><i class="glyphicon glyphicon-triangle-right"></i>Casing</a>
+                    </li>
+                    <li>
+                        <a href='{% url "posts:contact" %}'><i class="glyphicon glyphicon-earphone"></i>CONTACT US</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            BUILD YOUR OWN PC
+                        </h1>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="col-lg-6">
+                        <h1>PC BUILDER</h1>
+
+                        <form role="form" method="POST" action="">{% csrf_token %}
+
+                            <fieldset enabled>
+
+                                <div class="form-group">
+                                    <label for="Select_proc">Processor</label>
+                                    <select id="Select_proc" class="form-control" name="proc_drop">
+                                        <option value="">PROCESSOR</option>
+                                        {% for instance in proc %}
+                                            <option value='{{ instance.proc_model }}'>{{ instance.proc_model }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="Select_mobo">Motherboard</label>
+                                    <select id="Select_mobo" class="form-control" name="mobo_drop">
+                                        <option value="">MOTHERBOARD</option>
+                                        {% for instance in mobo %}
+                                            <option value='{{ instance.mobo_model }}'>{{ instance.mobo_model }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Select_mem">Memory</label>
+                                    <select id="Select_mem" class="form-control" name="mem_drop">
+                                        <option value="">MEMORY</option>
+                                        {% for instance in mem %}
+                                            <option value='{{ instance.mem_model }}'>{{ instance.mem_model }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Select_store">Storage</label>
+                                    <select id="Select_store" class="form-control" name="store_drop">
+                                        <option value="">STORAGE</option>
+                                        {% for instance in stor %}
+                                            <option value='{{ instance.store_model }}'>{{ instance.store_model }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Select_gpu">Graphics Card</label>
+                                    <select id="Select_gpu" class="form-control" name="gpu_drop">
+                                        <option value="">GRAPHICS CARD</option>
+                                        {% for instance in gpu %}
+                                            <option value='{{ instance.GPU_model }}'>{{ instance.GPU_model }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Select_psu">Power Supply</label>
+                                    <select id="Select_psu" class="form-control" name="psu_drop">
+                                        <option value="">POWER SUPPLY</option>
+                                        {% for instance in psu %}
+                                            <option value='{{ instance.PSU_model }}'>{{ instance.PSU_model }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Select_case">Case</label>
+                                    <select id="Select_case" class="form-control" name="case_drop">
+                                        <option value="">CASE</option>
+                                        {% for instance in case %}
+                                            <option value='{{ instance.case_model }}'>{{ instance.case_model }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">P</span>
+
+                                    <input type="text" class="form-control">
+
+                                    <span class="input-group-addon">.00</span>
+                                </div
+
+                                <div class="col-lg-12"><hr/>
+
+                                <input type="submit" class="btn btn-primary"></input>
+
+                                </div>
+
+                            </fieldset>
+
+                        </form>
+                        
+                    </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src='{% static "js/jquery.js"%}'></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src='{% static "js/bootstrap.min.js"%}'></script>
+
+</body>
+
+</html>

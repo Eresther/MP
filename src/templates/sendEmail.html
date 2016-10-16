@@ -1,0 +1,40 @@
+def post_practice(request):
+    form_class = PracticeForm
+    if request.method == 'POST':
+    	form = form_class(data=request.POST)
+    	if form.is_valid():
+    		contact_name = request.POST.get('contact_name','')
+    		contact_email = request.POST.get('contact_email','')
+    		form_content = request.POST.get('content','')
+
+    		template = get_template('contact_template.txt')
+    		context = Context({
+    			'contact_name': contact_name,
+    			'contact_email': contact_email,
+    			'form_content': form_content,
+    			})
+    		content = template.render(context)
+
+    		email = EmailMessage(
+    			"New Contact Form Submission",
+    			content,
+    			"Your Website" + '',
+    			['youremail@gmail.com'],
+    			headers = {'Reply-To': contact_email}
+    			)
+    		email.send()
+    
+    return render(request, 'practice.html', {
+        'form': form_class,
+    })
+
+def post_contact(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST or None)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Thank You. Your message has been sent")
+    return render(request, "Contact.html", {'form':form})
